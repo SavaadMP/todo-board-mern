@@ -1,0 +1,27 @@
+div.addTodo {
+  position: relative;
+  margin: 20px;
+  margin-top: 40px;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  input {
+    outline: none;
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid #bdbdbd;
+    height: 50px;
+    padding-left: 40px;
+    font-size: 18px;
+
+    &::placeholder {
+      font-size: 16px;
+    }
+  }
+}
