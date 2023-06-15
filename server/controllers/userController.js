@@ -20,4 +20,20 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+const loginUser = async (req, res) => {
+  // * ================== getting the datas from the user ======================
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.login(email, password);
+    const { username } = user;
+
+    // * ================= create user token ========================
+    const token = generateAuthToken(user._id);
+    res.status(200).json({ username, email, token });
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser };
