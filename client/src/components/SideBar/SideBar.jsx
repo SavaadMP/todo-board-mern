@@ -1,12 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SideBar.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLogout } from "../../hooks/useLogout";
+import { loginUser } from "../../redux/user";
 
 const SideBar = () => {
+  const { user } = useSelector((state) => state.user);
   const [menu, showMenu] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const { logout } = useLogout();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchUsers = async () => {
+      const userDetails = await JSON.parse(localStorage.getItem("User"));
+
+      if (userDetails) {
+        dispatch(loginUser(userDetails));
+      }
+    };
+
+    fetchUsers();
+    setLoading(false);
+  }, [localStorage.getItem("User")]);
+
+  const logoutHandler = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
-    <>
+    <div style={!user ? { display: "none" } : null}>
       {!menu ? (
         <svg
           onClick={() => showMenu(!menu)}
@@ -88,7 +115,7 @@ const SideBar = () => {
                   Settings
                 </Link>
               </li>
-              <li>
+              <li onClick={logoutHandler}>
                 <Link to="/">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,9 +132,20 @@ const SideBar = () => {
               </li>
             </ul>
           </div>
+
+          {user && !loading ? (
+            <div className="acc_details">
+              <h4>{user.username}</h4>
+              <p>{user.email}</p>
+            </div>
+          ) : (
+            <div className="acc_details">
+              <p>Loading</p>
+            </div>
+          )}
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

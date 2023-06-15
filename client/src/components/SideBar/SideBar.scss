@@ -54,6 +54,23 @@
         }
       }
     }
+
+    .acc_details {
+      background: #c6c6c6;
+      width: 250px;
+      padding: 10px 20px;
+      bottom: 30px;
+      position: absolute;
+      border-radius: 10px;
+
+      h4 {
+        letter-spacing: 1px;
+      }
+
+      p {
+        letter-spacing: 1px;
+      }
+    }
   }
 }
 

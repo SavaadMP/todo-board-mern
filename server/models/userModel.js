@@ -63,14 +63,19 @@ userSchema.statics.login = async function (email, password) {
     throw Error("All fields must be entered!!");
   }
 
-  const user = await this.findOne({ email: email });
-  const matchPassword = await bcrypt.compare(password, user.password);
+  const isUserExists = await this.findOne({ email: email });
 
-  if (!user || !matchPassword) {
-    throw Error("Email or Password is incorrect!!");
+  if (!isUserExists) {
+    throw Error("Email is incorrect!!");
+  } else {
+    const matchPassword = await bcrypt.compare(password, isUserExists.password);
+
+    if (!matchPassword) {
+      throw Error("Password is incorrect!!");
+    }
   }
 
-  return user;
+  return isUserExists;
 };
 
 module.exports = mongoose.model("User", userSchema);
