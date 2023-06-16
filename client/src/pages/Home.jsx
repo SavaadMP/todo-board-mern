@@ -1,6 +1,6 @@
 import React from "react";
 
-import Date from "../components/Date/Date";
+import ShowDate from "../components/Date/Date";
 import AddTodo from "../components/AddToDo/AddTodo";
 import UpcomingTask from "../components/UpcomingTask/UpcomingTask";
 import OngoingTask from "../components/OngoingTask/OngoingTask";
@@ -11,7 +11,7 @@ import "./Pages.scss";
 const Home = () => {
   return (
     <section className="home-container">
-      <Date />
+      <ShowDate />
       <AddTodo />
 
       <div className="tasks">
