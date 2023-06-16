@@ -25,6 +25,7 @@ const AddTodo = () => {
 
       if (response.ok) {
         dispatch(addTodo(data));
+        setTask("");
       }
     }
   };

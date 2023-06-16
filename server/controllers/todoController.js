@@ -16,4 +16,12 @@ const addTasks = async (req, res) => {
   }
 };
 
-module.exports = { addTasks };
+const getAllTodos = async (req, res) => {
+  const allTodos = await Todo.find({ userId: req.user.id }).sort({
+    createdAt: -1,
+  });
+
+  res.status(200).json(allTodos);
+};
+
+module.exports = { addTasks, getAllTodos };

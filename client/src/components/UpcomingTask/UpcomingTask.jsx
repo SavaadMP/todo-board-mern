@@ -1,16 +1,21 @@
 import React from "react";
 import Todo from "../Todo/Todo";
+import { useSelector } from "react-redux";
 
 const UpcomingTask = () => {
+  const { todo } = useSelector((state) => state.todo);
+  console.log(todo);
+
   return (
     <div className="task_table">
-      <h5>Upcoming Tasks</h5>
+      <h5>Upcoming Tasks </h5>
       <hr />
 
       <div className="todos">
-        <Todo text="Complete Authentication" />
-        <Todo text="Complete Todo App" />
-        <Todo text="Walk 20 Mints" />
+        {todo &&
+          todo.map((task) => {
+            return <Todo key={task.id} text={task.title} />;
+          })}
       </div>
     </div>
   );

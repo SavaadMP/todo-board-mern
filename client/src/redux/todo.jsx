@@ -11,8 +11,12 @@ const todoSlice = createSlice({
     addTodo: (state, action) => {
       state.todo.push(action.payload);
     },
+
+    setTodos: (state, action) => {
+      state.todo = action.payload;
+    },
   },
 });
 
-export const { addTodo } = todoSlice.actions;
+export const { addTodo, setTodos } = todoSlice.actions;
 export default todoSlice.reducer;
