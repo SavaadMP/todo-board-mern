@@ -4,7 +4,10 @@ import { useSelector } from "react-redux";
 
 const UpcomingTask = () => {
   const { todo } = useSelector((state) => state.todo);
-  console.log(todo);
+
+  const upcomingTasks = todo.filter((todo) => {
+    return todo.status === "upcoming";
+  });
 
   return (
     <div className="task_table">
@@ -12,9 +15,9 @@ const UpcomingTask = () => {
       <hr />
 
       <div className="todos">
-        {todo &&
-          todo.map((task) => {
-            return <Todo key={task._id} text={task} />;
+        {upcomingTasks &&
+          upcomingTasks?.map((task) => {
+            return <Todo key={task._id} status="ongoing" text={task} />;
           })}
       </div>
     </div>

@@ -30,7 +30,7 @@ const Home = () => {
     if (user) {
       fetchTodos();
     }
-  }, [user]);
+  }, [user, dispatch]);
 
   return (
     <section className="home-container">

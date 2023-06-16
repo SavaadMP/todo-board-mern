@@ -1,10 +1,28 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo } from "../../redux/todo";
+import { useSelector } from "react-redux";
 
-const Todo = ({ text }) => {
+const Todo = ({ text, status }) => {
   const { user } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+
+  const changeStatus = async () => {
+    const response = await fetch(
+      "http://localhost:3300/api/user/changeStatus/" + text._id,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          status: status,
+        }),
+      }
+    );
+
+    const data = await response.json();
+    console.log(data);
+    window.location.reload();
+  };
 
   const removeTodo = async () => {
     const response = await fetch(
@@ -19,7 +37,6 @@ const Todo = ({ text }) => {
 
     const data = await response.json();
     console.log(data);
-    dispatch(deleteTodo(data));
     window.location.reload();
   };
 
@@ -32,19 +49,21 @@ const Todo = ({ text }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "10px",
         }}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="30"
-          height="30"
-          viewBox="0 0 24 24"
-          style={{ fill: "rgba(0, 0, 0, 1)", marginRight: "10px" }}
-        >
-          <path d="M10.296 7.71 14.621 12l-4.325 4.29 1.408 1.42L17.461 12l-5.757-5.71z"></path>
-          <path d="M6.704 6.29 5.296 7.71 9.621 12l-4.325 4.29 1.408 1.42L12.461 12z"></path>
-        </svg>
+        {status == "done" ? null : (
+          <svg
+            onClick={() => changeStatus()}
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            style={{ fill: "#00FF00", marginRight: "10px" }}
+          >
+            <path d="M10.296 7.71 14.621 12l-4.325 4.29 1.408 1.42L17.461 12l-5.757-5.71z"></path>
+            <path d="M6.704 6.29 5.296 7.71 9.621 12l-4.325 4.29 1.408 1.42L12.461 12z"></path>
+          </svg>
+        )}
 
         <svg
           onClick={removeTodo}

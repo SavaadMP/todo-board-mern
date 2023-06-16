@@ -40,4 +40,26 @@ const deleteTodo = async (req, res) => {
   res.status(200).json(todo);
 };
 
-module.exports = { addTasks, getAllTodos, deleteTodo };
+const changeTodoStatus = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid ID" });
+  }
+
+  const todo = await Todo.findByIdAndUpdate(
+    { _id: id },
+    {
+      $set: {
+        status: req.body.status,
+      },
+    }
+  );
+  if (!todo) {
+    res.status(404).json({ error: "todo does not exist" });
+  }
+
+  res.status(200).json(todo);
+};
+
+module.exports = { addTasks, getAllTodos, deleteTodo, changeTodoStatus };
