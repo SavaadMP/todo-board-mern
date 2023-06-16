@@ -1,11 +1,32 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./AddTodo.scss";
+import { addTodo } from "../../redux/todo";
 
 const AddTodo = () => {
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [task, setTask] = useState("");
 
-  const addTask = () => {
-    console.log(task);
+  const addTask = async () => {
+    if (!task == "") {
+      const response = await fetch("http://localhost:3300/api/user/addtodo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({
+          task: task,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        dispatch(addTodo(data));
+      }
+    }
   };
 
   return (
