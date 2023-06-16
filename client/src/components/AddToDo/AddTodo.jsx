@@ -8,7 +8,9 @@ const AddTodo = () => {
   const dispatch = useDispatch();
   const [task, setTask] = useState("");
 
-  const addTask = async () => {
+  const addTask = async (e) => {
+    e.preventDefault();
+
     if (!task == "") {
       const response = await fetch("http://localhost:3300/api/user/addtodo", {
         method: "POST",
@@ -32,7 +34,7 @@ const AddTodo = () => {
 
   return (
     <div>
-      <div className="addTodo">
+      <form className="addTodo" onSubmit={addTask}>
         <svg
           onClick={addTask}
           xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +51,7 @@ const AddTodo = () => {
           type="text"
           placeholder="Enter the task..."
         />
-      </div>
+      </form>
     </div>
   );
 };

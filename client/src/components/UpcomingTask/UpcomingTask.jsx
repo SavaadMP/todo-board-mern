@@ -14,7 +14,7 @@ const UpcomingTask = () => {
       <div className="todos">
         {todo &&
           todo.map((task) => {
-            return <Todo key={task.id} text={task.title} />;
+            return <Todo key={task._id} text={task} />;
           })}
       </div>
     </div>

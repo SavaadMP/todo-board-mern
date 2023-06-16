@@ -7,9 +7,7 @@ const OngoingTask = () => {
       <h5>Ongoing Tasks</h5>
       <hr />
 
-      <div className="todos">
-        <Todo text="Complete login page" />
-      </div>
+      <div className="todos">{/* <Todo text="Complete login page" /> */}</div>
     </div>
   );
 };

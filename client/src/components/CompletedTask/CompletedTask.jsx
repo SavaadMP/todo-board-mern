@@ -8,9 +8,9 @@ const CompletedTask = () => {
       <hr />
 
       <div className="todos">
-        <Todo text="Designed Header Section" />
+        {/* <Todo text="Designed Header Section" />
         <Todo text="Designed hero section" />
-        <Todo text="listen a podcast" />
+        <Todo text="listen a podcast" /> */}
       </div>
     </div>
   );

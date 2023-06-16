@@ -12,7 +12,6 @@ import { setTodos } from "../redux/todo";
 
 const Home = () => {
   const { user } = useSelector((state) => state.user);
-  const { todo } = useSelector((state) => state.todo);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,7 +30,7 @@ const Home = () => {
     if (user) {
       fetchTodos();
     }
-  }, []);
+  }, [user]);
 
   return (
     <section className="home-container">
